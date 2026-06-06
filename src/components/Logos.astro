@@ -1,0 +1,40 @@
+---
+const { items, logosSection } = Astro.props;
+
+const data = logosSection?.fields || {};
+
+const backgroundUrl = data.imagenFondo?.fields?.file?.url
+  ? `https:${data.imagenFondo.fields.file.url}`
+  : '';
+---
+
+<section
+  class="logos"
+  style={`background-image: url('${backgroundUrl}')`}
+>
+  <div class="container">
+
+    <h2>{data.titulo}</h2>
+
+    <div class="logos-grid">
+      {items.map((l: any) => {
+        const logoUrl = l.fields.logo?.fields?.file?.url
+          ? `https:${l.fields.logo.fields.file.url}`
+          : '';
+
+        return (
+          <div class="logo-item">
+            {logoUrl && (
+              <img
+                src={logoUrl}
+                alt={l.fields.nombre}
+                class="logo-img"
+              />
+            )}
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>

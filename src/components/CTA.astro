@@ -1,0 +1,28 @@
+---
+const { cta } = Astro.props;
+
+const data = cta.fields;
+
+const backgroundUrl = data.imagenFondo?.fields?.file?.url
+  ? `https:${data.imagenFondo.fields.file.url}`
+  : '';
+---
+
+<section
+  class="cta"
+  style={`background-image: url('${backgroundUrl}')`}
+>
+  <div class="container">
+    <div class="cta-content">
+
+      <h2>{data.titulo}</h2>
+
+      <p>{data.descripcion}</p>
+
+      <button class="cta-btn">
+        {data.textoBoton}
+      </button>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+---
+const { items, seccionBeneficios } = Astro.props;
+
+const data = seccionBeneficios?.fields || {};
+
+const backgroundUrl = data.imagenFondo?.fields?.file?.url
+  ? `https:${data.imagenFondo.fields.file.url}`
+  : "";
+---
+
+<section
+  class="beneficios"
+  style={`background-image: url('${backgroundUrl}')`}
+>
+  <div class="container">
+    <div class="beneficios-titulo">
+      <h2>{data.titulo}</h2>
+    </div>
+
+    <div class="beneficios-lista">
+      {items.map((item: any, index: number) => {
+        const beneficio = item.fields;
+
+        const imagenUrl = beneficio.imagen?.fields?.file?.url
+          ? `https:${beneficio.imagen.fields.file.url}`
+          : "";
+
+        return (
+          <div
+            class={`beneficio-item ${
+              index % 2 !== 0 ? "reverse" : ""
+            }`}
+          >
+            <div class="beneficio-imagen">
+              {imagenUrl && (
+                <img
+                  src={imagenUrl}
+                  alt={beneficio.titulo}
+                />
+              )}
+            </div>
+
+            <div class="beneficio-contenido">
+              <h3>{beneficio.titulo}</h3>
+              <p>{beneficio.descripcion}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

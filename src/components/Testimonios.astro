@@ -1,0 +1,50 @@
+---
+const { items, seccionTestimonios } = Astro.props;
+
+const data = seccionTestimonios?.fields || {};
+
+const backgroundUrl = data.imagenFondo?.fields?.file?.url
+  ? `https:${data.imagenFondo.fields.file.url}`
+  : "";
+---
+
+<section
+  class="testimonios"
+  style={`background-image: url('${backgroundUrl}')`}
+>
+  <div class="container">
+    <h2>{data.titulo || "Testimonios"}</h2>
+
+    <div class="testimonios-grid">
+      {
+        items.map((t: any) => {
+          const data = t.fields;
+
+          const imageUrl = data.foto?.fields?.file?.url
+            ? `https:${data.foto.fields.file.url}`
+            : "";
+
+          return (
+            <div class="testimonio-card">
+              <div class="testimonio-footer">
+                {imageUrl && (
+                  <img src={imageUrl} alt={data.nombre} class="avatar" />
+                )}
+
+                <div class="testimonio-autor">
+                  <h3>{data.nombre}</h3>
+                  <p class="cargo">{data.cargo}</p>
+                  <p class="empresa">{data.empresa}</p>
+                </div>
+              </div>
+
+              <div class="estrellas">★★★★★</div>
+
+              <p class="testimonio-texto">{data.texto}</p>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

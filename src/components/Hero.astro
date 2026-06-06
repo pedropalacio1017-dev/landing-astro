@@ -1,0 +1,44 @@
+---
+const { hero } = Astro.props;
+
+const data = hero.fields;
+
+const imageUrl = data.imagenFondo?.fields?.file?.url
+  ? `https:${data.imagenFondo.fields.file.url}`
+  : '';
+---
+
+<section
+  class="hero"
+  style={`background-image: url('${imageUrl}')`}
+>
+  <div class="hero-content">
+
+    <h1>{data.titulo}</h1>
+
+    <h2>{data.subtitulo}</h2>
+
+    <p class="hero-descripcion">
+      {data.descripcion}
+    </p>
+
+    <div class="hero-buttons">
+      <button class="btn-primary">
+        {data.botonPrimario}
+      </button>
+
+      <button class="btn-secondary">
+        {data.botonSecundario}
+      </button>
+    </div>
+
+    <p class="hero-inferior">
+      {data.textoInferior}
+    </p>
+
+    <a href="#" class="hero-link">
+      {data.textoCTA}
+    </a>
+
+  </div>
+</section>

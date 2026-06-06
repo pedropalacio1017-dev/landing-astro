@@ -1,0 +1,143 @@
+---
+const { footer } = Astro.props;
+
+const data = footer?.fields || {};
+
+const logoUrl = data.logoFooter?.fields?.file?.url
+  ? `https:${data.logoFooter.fields.file.url}`
+  : "";
+
+const backgroundUrl = data.imagenFondo?.fields?.file?.url
+  ? `https:${data.imagenFondo.fields.file.url}`
+  : "";
+---
+
+<footer
+  class="footer"
+  style={backgroundUrl ? `background-image:url('${backgroundUrl}')` : ""}
+>
+  <div class="footer-container">
+
+    <div class="footer-grid">
+
+      <!-- Logo -->
+      <div class="footer-brand">
+
+        {logoUrl && (
+          <img
+            src={logoUrl}
+            alt={data.tituloPrincipal || "Logo"}
+            class="footer-logo"
+          />
+        )}
+
+        <p>{data.descripcion}</p>
+
+        <div class="footer-social">
+
+          {data.linkedinUrl && (
+            <a
+              href={data.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              in
+            </a>
+          )}
+
+          {data.instagramUrl && (
+            <a
+              href={data.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ig
+            </a>
+          )}
+
+          {data.youtubeUrl && (
+            <a
+              href={data.youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              yt
+            </a>
+          )}
+
+        </div>
+
+      </div>
+
+      <!-- Empresas -->
+      <div class="footer-column">
+
+        <h4>{data.menuEmpresasTitulo}</h4>
+
+        <a href={data.empresa1url}>
+          {data.empresa1texto}
+        </a>
+
+        <a href={data.empresa2url}>
+          {data.empresa2texto}
+        </a>
+
+        <a href={data.empresa3url}>
+          {data.empresa3texto}
+        </a>
+
+      </div>
+
+      <!-- Técnicos -->
+      <div class="footer-column">
+
+        <h4>{data.menuTecnicosTitulo}</h4>
+
+        <a href={data.tecnico1url}>
+          {data.tecnico1texto}
+        </a>
+
+        <a href={data.tecnico2url}>
+          {data.tecnico2texto}
+        </a>
+
+      </div>
+
+      <!-- Sobre -->
+      <div class="footer-column">
+
+        <h4>{data.menuSobreTitulo}</h4>
+
+        <a href={data.sobre1url}>
+          {data.sobre1texto}
+        </a>
+
+        <a href={data.sobre2url}>
+          {data.sobre2texto}
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+      <div class="footer-copy">
+        {data.copyright}
+      </div>
+
+      <div class="footer-legal">
+
+        <a href={data.politicaPrivacidadUrl}>
+          {data.politicaPrivacidadTexto}
+        </a>
+
+        <a href={data.terminosUsoUrl}>
+          {data.terminosUsoTexto}
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</footer>

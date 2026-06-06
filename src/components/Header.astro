@@ -1,0 +1,36 @@
+---
+const { header } = Astro.props;
+
+const data = header.fields;
+
+const logoUrl = data.logo?.fields?.file?.url
+  ? "https:" + data.logo.fields.file.url
+  : "";
+---
+
+<header class="header">
+  <div class="container header-container">
+
+    <div class="logo-header">
+      {logoUrl && <img src={logoUrl} alt="Logo" />}
+    </div>
+
+    <button class="menu-toggle">☰</button>
+
+    <nav class="nav" id="navMenu">
+      {data.menu.map((item: string) => (
+        <a href="#">{item}</a>
+      ))}
+    </nav>
+
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector(".menu-toggle");
+  const nav = document.querySelector("#navMenu");
+
+  btn?.addEventListener("click", () => {
+    nav?.classList.toggle("active");
+  });
+</script>

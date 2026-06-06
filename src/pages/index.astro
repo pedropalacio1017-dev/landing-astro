@@ -1,0 +1,71 @@
+---
+import "../styles/Css-global.css";
+
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Logos from "../components/Logos.astro";
+import Beneficios from "../components/Beneficios.astro";
+import Testimonios from "../components/Testimonios.astro";
+import CTA from "../components/CTA.astro";
+import Footer from "../components/Footer.astro";
+
+import {
+  getHeader,
+  getHero,
+  getBeneficios,
+  getTestimonios,
+  getSeccionBeneficios,
+  getSeccionTestimonios,
+  getLogos,
+  getTituloLogos,
+  getCTA,
+  getFooter
+} from "../lib/api";
+
+// DATA
+const header = await getHeader();
+const hero = await getHero();
+
+const beneficios = await getBeneficios();
+const seccionBeneficios = await getSeccionBeneficios();
+
+const testimonios = await getTestimonios();
+const seccionTestimonios = await getSeccionTestimonios();
+
+const logos = await getLogos();
+const tituloLogos = await getTituloLogos();
+
+const cta = await getCTA();
+const footer = await getFooter();
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Landing Greatness</title>
+  </head>
+
+  <body>
+    <Header header={header} />
+    <Hero hero={hero} />
+
+    <Logos
+      items={logos}
+      logosSection={tituloLogos}
+    />
+
+    <Beneficios
+      items={beneficios}
+      seccionBeneficios={seccionBeneficios}
+    />
+
+    <Testimonios
+      items={testimonios}
+      seccionTestimonios={seccionTestimonios}
+    />
+
+    <CTA cta={cta} />
+
+    <Footer footer={footer} />
+  </body>
+</html>
